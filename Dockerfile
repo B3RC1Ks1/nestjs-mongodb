@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM node:16-alpine AS build
+FROM node:16-alpine AS builder
 
 WORKDIR /app
 
@@ -7,13 +7,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the entire source code and build the project
 COPY . .
-
-# Build the NestJS application (adjust if you use a different build command)
 RUN npm run build
 
-# Stage 2: Run the application
+# Stage 2: Create the production image
 FROM node:16-alpine
 
 WORKDIR /app
@@ -22,11 +20,15 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --production
 
-# Copy the built files from the build stage
-COPY --from=build /app/dist ./dist
+# Copy the built files from the builder stage
+COPY --from=builder /app/dist ./dist
 
-# Expose the port that the app listens on
+# Expose the port your app listens on
 EXPOSE 3000
+
+# Set environment variables (if desired, you can override these in docker-compose)
+ENV API_KEY=123
 
 # Start the application
 CMD ["node", "dist/main.js"]
+

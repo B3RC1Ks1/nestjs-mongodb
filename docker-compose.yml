@@ -2,12 +2,13 @@ version: '3'
 services:
   app:
     build: .
+    ports:
+      - "3000:3000"
     environment:
       - MONGO_URI=mongodb://mongo:27017/nestjsdb
       - BULL_REDIS_HOST=redis
       - BULL_REDIS_PORT=6379
-    ports:
-      - "3000:3000"
+      - API_KEY=my-secret-api-key
     depends_on:
       - mongo
       - redis
