@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Reservation, ReservationDocument } from 'src/schemas/Reservation.schema';
+import { ReservationDto } from 'src/reservations/Reservation.dto';
 
 @Injectable()
 export class ReservationService {
@@ -12,7 +13,7 @@ export class ReservationService {
     private reservationModel: Model<ReservationDocument>,
   ) {}
 
-  async updateIfExists(reservationData: any) {
+  async updateIfExists(reservationData: ReservationDto) {
     const { reservation_id } = reservationData;
     const existing = await this.reservationModel
       .findOne({ reservation_id })
@@ -26,7 +27,7 @@ export class ReservationService {
     return null;
   }
 
-  async addOrUpdate(reservationData: any) {
+  async addOrUpdate(reservationData: ReservationDto) {
     const { reservation_id } = reservationData;
     const existing = await this.reservationModel
       .findOne({ reservation_id })
