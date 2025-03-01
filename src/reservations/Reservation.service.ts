@@ -4,8 +4,8 @@ import { Model } from 'mongoose';
 import { Reservation, ReservationDocument } from 'src/schemas/Reservation.schema';
 
 @Injectable()
-export class ReservationsService {
-  private readonly logger = new Logger(ReservationsService.name);
+export class ReservationService {
+  private readonly logger = new Logger(ReservationService.name);
 
   constructor(
     @InjectModel(Reservation.name)

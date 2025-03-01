@@ -3,7 +3,7 @@ import { Job } from 'bullmq';
 import { Logger } from '@nestjs/common';
 import * as XLSX from 'xlsx';
 import { TasksService } from 'src/tasks/Task.service';
-import { ReservationsService } from 'src/reservations/Reservation.service';
+import { ReservationService } from 'src/reservations/Reservation.service';
 
 interface ErrorReportEntry {
   row: number;
@@ -17,7 +17,7 @@ export class TasksProcessor {
 
   constructor(
     private readonly tasksService: TasksService,
-    private readonly reservationsService: ReservationsService,
+    private readonly reservationsService: ReservationService,
   ) {}
 
   @Process('processFile')
