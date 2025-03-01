@@ -1,11 +1,27 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { BullModule } from '@nestjs/bull';
+import { TasksModule } from 'src/tasks/Task.module';
+import { ReservationModule } from './reservations/Reservation.module';
+import { HealthModule } from 'src/health/Health.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost:27017/')],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRoot(
+      process.env.MONGO_URI || 'mongodb://localhost:27017/',
+    ),
+    BullModule.forRoot({
+      redis: {
+        host: process.env.BULL_REDIS_HOST || 'localhost',
+        port: parseInt(process.env.BULL_REDIS_PORT || '6379', 10),
+      },
+    }),
+    TasksModule,
+    ReservationModule,
+    HealthModule,
+  ],
 })
 export class AppModule {}
+
