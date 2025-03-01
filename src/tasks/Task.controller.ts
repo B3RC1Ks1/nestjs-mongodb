@@ -37,7 +37,6 @@ export class TasksController {
     if (!file) {
       throw new HttpException('File is required', HttpStatus.BAD_REQUEST);
     }
-    // Create a task, add to DB and queue for processing
     const taskId = await this.tasksService.createTask(file.path);
     return { taskId };
   }
