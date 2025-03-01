@@ -6,7 +6,7 @@ import * as fs from 'fs';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 import { TasksService } from 'src/tasks/Task.service';
-import { ReservationService } from 'src/reservations/Reservation.service';
+import { ReservationsService } from 'src/reservations/Reservation.service';
 import { ReservationDto } from 'src/reservations/Reservation.dto';
 
 interface ErrorReportEntry {
@@ -21,7 +21,7 @@ export class TasksProcessor {
 
   constructor(
     private readonly tasksService: TasksService,
-    private readonly reservationsService: ReservationService,
+    private readonly reservationsService: ReservationsService,
   ) {}
 
   @Process('processFile')
