@@ -9,6 +9,7 @@ services:
       - BULL_REDIS_HOST=redis
       - BULL_REDIS_PORT=6379
       - API_KEY=123
+      - PORT=7856
     depends_on:
       - mongo
       - redis
