@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Task, TaskDocument } from 'src/schemas/Task.schema';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bullmq';
+import { TasksGateway } from 'src/tasks/Task.gateway';
 
 @Injectable()
 export class TasksService {
@@ -12,6 +13,7 @@ export class TasksService {
   constructor(
     @InjectModel(Task.name) private taskModel: Model<TaskDocument>,
     @InjectQueue('taskQueue') private taskQueue: Queue,
+    private readonly tasksGateway: TasksGateway,
   ) {}
 
   async createTask(filePath: string): Promise<string> {
@@ -26,6 +28,8 @@ export class TasksService {
       taskId: savedTask._id,
       filePath,
     });
+
+    this.tasksGateway.notifyTaskStatus(String(savedTask._id), 'PENDING');
 
     return String(savedTask._id);
   }
@@ -54,7 +58,8 @@ export class TasksService {
     taskId: string,
     status: string,
     errorReport: any[] = [],
-  ) {
+  ): Promise<void> {
     await this.taskModel.findByIdAndUpdate(taskId, { status, errorReport });
+    this.tasksGateway.notifyTaskStatus(taskId, status, errorReport);
   }
 }

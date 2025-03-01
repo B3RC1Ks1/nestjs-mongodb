@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Task, TaskSchema } from 'src/schemas/Task.schema';
 import { BullModule } from '@nestjs/bull';
 import { ReservationModule } from 'src/reservations/Reservation.module';
+import { TasksGateway } from 'src/tasks/Task.gateway';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ReservationModule } from 'src/reservations/Reservation.module';
     ReservationModule,
   ],
   controllers: [TasksController],
-  providers: [TasksService, TasksProcessor],
+  providers: [TasksService, TasksProcessor, TasksGateway],
+  exports: [TasksService, TasksGateway],
 })
 export class TasksModule {}
