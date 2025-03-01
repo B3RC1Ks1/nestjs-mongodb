@@ -24,7 +24,7 @@ RUN npm install --production
 COPY --from=builder /app/dist ./dist
 
 # Expose the port your app listens on
-EXPOSE 3000
+EXPOSE 7856
 
 # Set environment variables (if desired, you can override these in docker-compose)
 ENV API_KEY=123
