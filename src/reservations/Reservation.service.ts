@@ -5,8 +5,8 @@ import { Reservation, ReservationDocument } from 'src/schemas/Reservation.schema
 import { ReservationDto } from 'src/reservations/Reservation.dto';
 
 @Injectable()
-export class ReservationService {
-  private readonly logger = new Logger(ReservationService.name);
+export class ReservationsService {
+  private readonly logger = new Logger(ReservationsService.name);
 
   constructor(
     @InjectModel(Reservation.name)

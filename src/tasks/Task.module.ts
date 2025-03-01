@@ -5,7 +5,7 @@ import { TasksProcessor } from 'src/tasks/Task.processor';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Task, TaskSchema } from 'src/schemas/Task.schema';
 import { BullModule } from '@nestjs/bull';
-import { ReservationModule } from 'src/reservations/Reservation.module';
+import { ReservationsModule } from 'src/reservations/Reservation.module';
 import { TasksGateway } from 'src/tasks/Task.gateway';
 
 @Module({
@@ -14,7 +14,7 @@ import { TasksGateway } from 'src/tasks/Task.gateway';
     BullModule.registerQueue({
       name: 'taskQueue',
     }),
-    ReservationModule,
+    ReservationsModule,
   ],
   controllers: [TasksController],
   providers: [TasksService, TasksProcessor, TasksGateway],

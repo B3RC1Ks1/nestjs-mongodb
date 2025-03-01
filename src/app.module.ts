@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BullModule } from '@nestjs/bull';
 import { TasksModule } from 'src/tasks/Task.module';
-import { ReservationModule } from './reservations/Reservation.module';
+import { ReservationsModule } from './reservations/Reservation.module';
 import { HealthModule } from 'src/health/Health.module';
 
 @Module({
@@ -19,7 +19,7 @@ import { HealthModule } from 'src/health/Health.module';
       },
     }),
     TasksModule,
-    ReservationModule,
+    ReservationsModule,
     HealthModule,
   ],
 })
