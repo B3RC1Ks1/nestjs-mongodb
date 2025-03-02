@@ -83,8 +83,15 @@ This project is a dockerized API built with [NestJS](https://nestjs.com/) that m
 #### Task Status:
 - `GET /tasks/status/:taskId` - Retrieve the current status and error details (if any) of a specific task.
 
-#### Download Error Report:
-- `GET /tasks/report/:taskId` - Download a CSV error report for a task that encountered validation or processing issues.
+#### Error Report:
+- `GET /tasks/report/:taskId` - Get error report in CSV format for a task that encountered validation or processing issues.
+
+### Example XLSX Files for Testing
+Two sample Excel files are provided for testing:
+1. `reservations_correct.xlsx` - Contains correctly formatted reservation data with no errors.
+2. `reservations_errors.xlsx` - Contains intentional errors to demonstrate the validation and error reporting system.
+
+Upload these files via the `/tasks/upload` endpoint to see the system in action.
 
 ### WebSocket Testing
 
