@@ -93,6 +93,20 @@ Two sample Excel files are provided for testing:
 
 Upload these files via the `/tasks/upload` endpoint to see the system in action.
 
+### Testing the API and Database
+
+To test API requests, we recommend using:
+- **[Postman](https://www.postman.com/)** - For sending requests to the API endpoints.
+- **[MongoDB Compass](https://www.mongodb.com/try/download/compass)** - For visualizing and managing MongoDB data.
+
+Use the following connection string to connect MongoDB Compass to the running database:
+
+```plaintext
+mongodb://127.0.0.1:27018/
+```
+
+---
+
 ### WebSocket Testing
 
 A sample HTML file is provided to test real-time WebSocket notifications:
