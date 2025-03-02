@@ -142,14 +142,14 @@ If you prefer to run the application without Docker:
 ```
 .
 ├── src
-│   ├── app.module.ts               # Main application module
-│   ├── main.ts                     # Application entry point
+│   ├── app.module.ts                # Main application module
+│   ├── main.ts                      # Application entry point
 │   ├── guard
-│   │   └── Api-key.guard.ts        # API key authentication guard
+│   │   └── Api-key.guard.ts         # API key authentication guard
 │   ├── health
-│   │   ├── Health.controller.ts    # Health check endpoint controller
-│   │   ├── Health.gateway.ts       # WebSocket gateway for health status updates
-│   │   └── Health.module.ts        # Health module setup
+│   │   ├── Health.controller.ts     # Health check endpoint controller
+│   │   ├── Health.gateway.ts        # WebSocket gateway for health status updates
+│   │   └── Health.module.ts         # Health module setup
 │   ├── reservations
 │   │   ├── Reservation.dto.ts       # Data Transfer Object for reservations
 │   │   ├── Reservation.module.ts    # Reservations module
@@ -163,9 +163,9 @@ If you prefer to run the application without Docker:
 │       ├── Task.module.ts           # Tasks module
 │       ├── Task.processor.ts        # Background processor for tasks
 │       └── Task.service.ts          # Task management service
-├── docker-compose.yml              # Docker Compose configuration
-├── Dockerfile                      # Multi-stage Dockerfile for building the app
-└── src/test-websocket.html         # Sample WebSocket test client
+├── docker-compose.yml               # Docker Compose configuration
+├── Dockerfile                       # Multi-stage Dockerfile for building the app
+└── src/test-websocket.html          # Sample WebSocket test client
 ```
 
 ---
