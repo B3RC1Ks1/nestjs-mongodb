@@ -1,64 +1,202 @@
-<p align="center">
-  <a href="https://nestjs.com/" target="blank">
-    <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
-  </a>
-</p>
+# NestJS Reservations & Tasks Processor API
 
-<p align="center">
-  <b>A simple NestJS + MongoDB application for uploading and processing Excel reservations.</b>
-</p>
-
-<p align="center">
-  <a href="LICENSE" target="blank">
-    <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"/>
-  </a>
-  <a href="https://github.com/yourname/your-repo/actions" target="blank">
-    <img src="https://github.com/yourname/your-repo/actions/workflows/ci.yml/badge.svg" alt="CI Status" />
-  </a>
-  <a href="https://hub.docker.com/r/yourname/your-repo" target="blank">
-    <img src="https://img.shields.io/docker/pulls/library/ubuntu?label=docker%20pulls" alt="Docker Pulls" />
-  </a>
-</p>
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/yourusername/yourappname)](https://hub.docker.com/r/yourusername/yourappname)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
-## Description
+## Overview
 
-This NestJS application demonstrates how to:
+This project is a dockerized API built with [NestJS](https://nestjs.com/) that manages reservations and processes Excel files to update reservation records. It features secure API key authentication, real-time WebSocket notifications, health-check endpoints, and comprehensive error reporting. The stack integrates with MongoDB for data storage and Redis (via Bull) for background job processing.
 
-- **Upload and process Excel files** containing reservation data  
-- **Store reservations in MongoDB**  
-- **Track tasks** (upload/processing) with BullMQ (Redis)  
-- **Generate error reports** for invalid rows in CSV format  
-- **Socket.IO notifications** for real-time task status updates  
-- **API key guard** for basic endpoint protection  
-- **Health checks** using NestJS Terminus (pinging MongoDB)
+---
 
 ## Features
 
-1. **File Upload & Processing**  
-   - `/tasks/upload` accepts `.xlsx` files (via Multer)  
-   - A background queue (BullMQ) processes reservations row-by-row
+- **Secure API Endpoints:**  
+  Protect your endpoints using a custom API key guard.
 
-2. **Task Monitoring**  
-   - Check task status at `/tasks/status/:taskId`  
-   - Download error reports at `/tasks/report/:taskId`
+- **Health Monitoring:**  
+  Check application health and MongoDB connectivity using NestJS Terminus.
 
-3. **Socket.IO Gateway**  
-   - Real-time updates on each task’s status  
-   - Subscribed clients receive `taskStatusUpdate` events
+- **Reservations Management:**  
+  Add or update reservation records from Excel files with full data validation and error reporting.
 
-4. **API Key Protection**  
-   - All routes require `x-api-key` header matching `process.env.API_KEY`
+- **Background Task Processing:**  
+  Process uploaded XLSX files asynchronously with Bull and generate CSV error reports if necessary.
 
-5. **Health Endpoint**  
-   - `/health` checks MongoDB connectivity
+- **Real-time Notifications:**  
+  Stay updated with task statuses via a WebSocket gateway powered by Socket.io.
+
+- **Dockerized Setup:**  
+  Seamlessly deploy the complete stack with Docker Compose, including MongoDB and Redis services.
 
 ---
 
-## Project Setup
+## Prerequisites
 
-1. Clone this repository:
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+---
+
+## Installation
+
+1. **Clone the Repository:**
+
    ```bash
-   git clone https://github.com/yourname/your-repo.git
-   cd your-repo
+   git clone https://github.com/B3RC1Ks1/nestjs-mongodb.git
+   cd nestjs-mongodb
+   ```
+
+2. **Configure Environment Variables:**
+
+   Create a `.env` file in the root directory (if not already present) and update the following values as needed:
+
+   ```dotenv
+   MONGO_URI=mongodb://localhost:27017/
+   BULL_REDIS_HOST=127.0.0.1
+   BULL_REDIS_PORT=6379
+   API_KEY=123
+   PORT=7856
+   ```
+
+   **Note:** The same environment variables are set in the `docker-compose.yml` for containerized deployments.
+
+3. **Build and Run with Docker Compose:**
+
+   ```bash
+   docker-compose up --build
+   ```
+
+   This command builds the Docker images and starts the application along with the MongoDB and Redis services.
+
+---
+
+## Usage
+
+### API Endpoints
+
+#### Health Check:
+- `GET /health` - Returns the health status of the application including MongoDB connectivity.
+
+#### Task Upload:
+- `POST /tasks/upload` - Upload an XLSX file containing reservation data.
+  - **Headers:**
+    - `x-api-key`: Your API key (default is `123`).
+
+#### Task Status:
+- `GET /tasks/status/:taskId` - Retrieve the current status and error details (if any) of a specific task.
+
+#### Download Error Report:
+- `GET /tasks/report/:taskId` - Download a CSV error report for a task that encountered validation or processing issues.
+
+### WebSocket Testing
+
+A sample HTML file is provided to test real-time WebSocket notifications:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>WebSocket Test</title>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+  </head>
+  <body>
+    <h1>WebSocket Test</h1>
+    <script>
+      const socket = io('http://localhost:7856');
+
+      socket.on('connect', () => {
+        console.log('Connected to WebSocket server with id:', socket.id);
+      });
+
+      socket.on('taskStatusUpdate', (data) => {
+        console.log('Received task status update:', data);
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Disconnected from WebSocket server');
+      });
+    </script>
+  </body>
+</html>
+```
+
+Simply open the HTML file in your browser to see live notifications as tasks are processed.
+
+---
+
+## Running Locally Without Docker
+
+If you prefer to run the application without Docker:
+
+1. **Install Dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+2. **Start the Application:**
+
+   ```bash
+   npm run start
+   ```
+
+   The application will start on the port defined in the `.env` file (default is `7856`).
+
+---
+
+## Project Structure
+
+```
+.
+├── src
+│   ├── app.module.ts               # Main application module
+│   ├── main.ts                     # Application entry point
+│   ├── guard
+│   │   └── Api-key.guard.ts        # API key authentication guard
+│   ├── health
+│   │   ├── Health.controller.ts    # Health check endpoint controller
+│   │   └── Health.module.ts        # Health module setup
+│   ├── reservations
+│   │   ├── Reservation.dto.ts       # Data Transfer Object for reservations
+│   │   ├── Reservation.module.ts    # Reservations module
+│   │   └── Reservation.service.ts   # Business logic for reservations
+│   ├── schemas
+│   │   ├── Reservation.schema.ts    # Mongoose schema for reservations
+│   │   └── Task.schema.ts           # Mongoose schema for tasks
+│   └── tasks
+│       ├── Task.controller.ts       # Endpoints for file upload and task status
+│       ├── Task.gateway.ts          # WebSocket gateway for real-time updates
+│       ├── Task.module.ts           # Tasks module
+│       ├── Task.processor.ts        # Background processor for tasks
+│       └── Task.service.ts          # Task management service
+├── docker-compose.yml              # Docker Compose configuration
+├── Dockerfile                      # Multi-stage Dockerfile for building the app
+├── .env                            # Environment variables configuration
+└── src/test-websocket.html         # Sample WebSocket test client
+```
+
+---
+
+## Docker Files
+
+### Dockerfile
+The `Dockerfile` uses a multi-stage build process:
+
+- **Builder Stage:**
+  - Installs dependencies, copies source code, and builds the project.
+- **Production Stage:**
+  - Copies the built files and installs only production dependencies to create a lean runtime image.
+
+### docker-compose.yml
+This file defines three services:
+
+- `app`: Your NestJS application.
+- `mongo`: MongoDB service for data persistence.
+- `redis`: Redis service for managing the task queue.
+
+---
+
