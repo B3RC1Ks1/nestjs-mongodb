@@ -1,8 +1,4 @@
 # NestJS Reservations & Tasks Processor API
-
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/yourusername/yourappname)](https://hub.docker.com/r/yourusername/yourappname)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
 ---
 
 ## Overview
