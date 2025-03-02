@@ -6,7 +6,7 @@ export class HealthGateway {
   @WebSocketServer()
   server: Server;
 
-  notifyHealthStatus(status: string): void {
+  notifyHealthStatus(status: any): void {
     this.server.emit('healthStatusUpdate', { status });
   }
 }

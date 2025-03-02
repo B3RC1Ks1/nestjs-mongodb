@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>WebSocket Test</title>
-    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
-  </head>
-  <body>
-    <h1>WebSocket Test</h1>
-    <script>
-      const socket = io('http://localhost:7856');
+<head>
+  <meta charset="UTF-8">
+  <title>WebSocket Test</title>
+  <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>WebSocket Test</h1>
+  <script>
+    const socket = io('http://localhost:7856');
 
-      socket.on('connect', () => {
-        console.log('Connected to WebSocket server with id:', socket.id);
-      });
+    socket.on('connect', () => {
+      console.log('Connected to WebSocket server with id:', socket.id);
+    });
 
-      socket.on('taskStatusUpdate', (data) => {
-        console.log('Received task status update:', data);
-      });
+    socket.on('taskStatusUpdate', (data) => {
+      console.log('Received task status update:', data);
+    });
 
-      socket.on('healthStatusUpdate', (data) => {
-        console.log('Received health status update:', data);
-      });
+    socket.on('healthStatusUpdate', (data) => {
+      const { status, info, error } = data.status;
+      console.log('Health check overall status:', status);
+      console.log('Health check info:', info);
+      console.log('Health check error count:', error);
+    });
 
-      socket.on('disconnect', () => {
-        console.log('Disconnected from WebSocket server');
-      });
-    </script>
-  </body>
+    socket.on('disconnect', () => {
+      console.log('Disconnected from WebSocket server');
+    });
+  </script>
+</body>
 </html>
