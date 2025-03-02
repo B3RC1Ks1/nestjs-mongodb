@@ -76,6 +76,8 @@ This project is a dockerized API built with [NestJS](https://nestjs.com/) that m
 - `GET /health` - Returns the health status of the application including MongoDB connectivity.
 
 #### Task Upload:
+- **Important:** When using Postman, make sure to upload the file as `form-data` with the key set to `file`. This is required for the upload to work correctly.
+
 - `POST /tasks/upload` - Upload an XLSX file containing reservation data.
   - **Headers:**
     - `x-api-key`: Your API key (default is `123`).
