@@ -56,7 +56,7 @@ This project is a dockerized API built with [NestJS](https://nestjs.com/) that m
    PORT=7856
    ```
 
-   **Note:** The same environment variables are set in the `docker-compose.yml` for containerized deployments.
+   **Note:** This application is for demonstration purposes only, so the environment variables are already set in the docker-compose.yml to simplify deployment and testing. There is no need to create a .env file when running the application with Docker.
 
 3. **Build and Run with Docker Compose:**
 
