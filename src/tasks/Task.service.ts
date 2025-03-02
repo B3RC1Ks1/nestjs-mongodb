@@ -24,10 +24,17 @@ export class TasksService {
     });
     const savedTask = await task.save();
 
-    await this.taskQueue.add('processFile', {
-      taskId: savedTask._id,
-      filePath,
-    });
+    await this.taskQueue.add(
+      'processFile',
+      { taskId: savedTask._id, filePath },
+      {
+        attempts: 3,
+        backoff: {
+          type: 'fixed',
+          delay: 3000,
+        },
+      },
+    );
 
     this.tasksGateway.notifyTaskStatus(String(savedTask._id), 'PENDING');
 
