@@ -46,6 +46,8 @@ This project is a dockerized API built with [NestJS](https://nestjs.com/) that m
 
 2. **Configure Environment Variables:**
 
+   **Note:** This application is for demonstration purposes only, so the environment variables are already set in the docker-compose.yml to simplify deployment and testing. There is no need to create a .env file when running the application with Docker.
+   
    Create a `.env` file in the root directory (if not already present) and update the following values as needed:
 
    ```dotenv
@@ -55,8 +57,6 @@ This project is a dockerized API built with [NestJS](https://nestjs.com/) that m
    API_KEY=123
    PORT=7856
    ```
-
-   **Note:** This application is for demonstration purposes only, so the environment variables are already set in the docker-compose.yml to simplify deployment and testing. There is no need to create a .env file when running the application with Docker.
 
 3. **Build and Run with Docker Compose:**
 
