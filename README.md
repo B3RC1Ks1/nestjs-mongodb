@@ -70,6 +70,8 @@ This project is a dockerized API built with [NestJS](https://nestjs.com/) that m
 
 ## Usage
 
+**Note:** All endpoints require the `x-api-key` header with your API key. By default for demonstration purposes `x-api-key:123` will work.
+
 ### API Endpoints
 
 #### Health Check:
@@ -79,8 +81,6 @@ This project is a dockerized API built with [NestJS](https://nestjs.com/) that m
 **Important:** When using Postman, make sure to upload the file as `form-data` with the key set to `file`. This is required for the upload to work correctly.
 
 - `POST /tasks/upload` - Upload an XLSX file containing reservation data.
-  - **Headers:**
-    - `x-api-key`: Your API key (default is `123`).
 
 #### Task Status:
 - `GET /tasks/status/:taskId` - Retrieve the current status and error details (if any) of a specific task.
