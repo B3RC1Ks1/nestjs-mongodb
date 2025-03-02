@@ -68,6 +68,20 @@ This project is a dockerized API built with [NestJS](https://nestjs.com/) that m
 
 ---
 
+## Tools for using API and Database
+
+To test API requests, we recommend using:
+- **[Postman](https://www.postman.com/)** - For sending requests to the API endpoints.
+- **[MongoDB Compass](https://www.mongodb.com/try/download/compass)** - For visualizing and managing MongoDB data.
+
+Use the following connection string to connect MongoDB Compass to the running database:
+
+```plaintext
+mongodb://127.0.0.1:27018/
+```
+
+---
+
 ## Usage
 
 **Note:** All endpoints require the `x-api-key` header with your API key. By default for demonstration purposes `x-api-key:123` will work.
@@ -94,18 +108,6 @@ Two sample Excel files are provided for testing:
 2. `reservations_errors.xlsx` - Contains intentional errors to demonstrate the validation and error reporting system.
 
 Upload these files via the `/tasks/upload` endpoint to see the system in action.
-
-### Testing the API and Database
-
-To test API requests, we recommend using:
-- **[Postman](https://www.postman.com/)** - For sending requests to the API endpoints.
-- **[MongoDB Compass](https://www.mongodb.com/try/download/compass)** - For visualizing and managing MongoDB data.
-
-Use the following connection string to connect MongoDB Compass to the running database:
-
-```plaintext
-mongodb://127.0.0.1:27018/
-```
 
 ---
 
