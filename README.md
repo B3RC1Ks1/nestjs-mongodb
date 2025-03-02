@@ -124,7 +124,7 @@ A sample HTML file is provided to test real-time WebSocket notifications:
 </html>
 ```
 
-Simply open the HTML file in your browser to see live notifications as tasks are processed.
+Simply open the HTML file in your browser and enter console to see live notifications as tasks are processed.
 
 ---
 
