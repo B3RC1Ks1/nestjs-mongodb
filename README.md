@@ -111,38 +111,9 @@ mongodb://127.0.0.1:27018/
 
 ### WebSocket Testing
 
-A sample HTML file is provided to test real-time WebSocket notifications:
+A sample HTML file called `test-websocket.html` is provided to test WebSocket notifications.
 
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>WebSocket Test</title>
-    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
-  </head>
-  <body>
-    <h1>WebSocket Test</h1>
-    <script>
-      const socket = io('http://localhost:7856');
-
-      socket.on('connect', () => {
-        console.log('Connected to WebSocket server with id:', socket.id);
-      });
-
-      socket.on('taskStatusUpdate', (data) => {
-        console.log('Received task status update:', data);
-      });
-
-      socket.on('disconnect', () => {
-        console.log('Disconnected from WebSocket server');
-      });
-    </script>
-  </body>
-</html>
-```
-
-Simply open the HTML file in your browser and enter console to see live notifications as tasks are processed.
+To check it out simply open the HTML file in your browser and enter console to see live notifications as tasks are processed.
 
 ---
 
@@ -177,6 +148,7 @@ If you prefer to run the application without Docker:
 │   │   └── Api-key.guard.ts        # API key authentication guard
 │   ├── health
 │   │   ├── Health.controller.ts    # Health check endpoint controller
+│   │   ├── Health.gateway.ts       # WebSocket gateway for health status updates
 │   │   └── Health.module.ts        # Health module setup
 │   ├── reservations
 │   │   ├── Reservation.dto.ts       # Data Transfer Object for reservations
@@ -193,7 +165,6 @@ If you prefer to run the application without Docker:
 │       └── Task.service.ts          # Task management service
 ├── docker-compose.yml              # Docker Compose configuration
 ├── Dockerfile                      # Multi-stage Dockerfile for building the app
-├── .env                            # Environment variables configuration
 └── src/test-websocket.html         # Sample WebSocket test client
 ```
 
