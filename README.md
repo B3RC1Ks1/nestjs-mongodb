@@ -47,16 +47,6 @@ This project is a dockerized API built with [NestJS](https://nestjs.com/) that m
 2. **Configure Environment Variables:**
 
    **Note:** This application is for demonstration purposes only, so the environment variables are already set in the docker-compose.yml to simplify deployment and testing. There is no need to create a .env file when running the application with Docker.
-   
-   Create a `.env` file in the root directory (if not already present) and update the following values as needed:
-
-   ```dotenv
-   MONGO_URI=mongodb://localhost:27017/
-   BULL_REDIS_HOST=127.0.0.1
-   BULL_REDIS_PORT=6379
-   API_KEY=123
-   PORT=7856
-   ```
 
 3. **Build and Run with Docker Compose:**
 
@@ -116,26 +106,6 @@ Upload these files via the `/tasks/upload` endpoint to see the system in action.
 A sample HTML file called `test-websocket.html` is provided to test WebSocket notifications.
 
 To check it out simply open the HTML file in your browser and enter console to see live notifications as tasks are processed.
-
----
-
-## Running Locally Without Docker
-
-If you prefer to run the application without Docker:
-
-1. **Install Dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-2. **Start the Application:**
-
-   ```bash
-   npm run start
-   ```
-
-   The application will start on the port defined in the `.env` file (default is `7856`).
 
 ---
 
